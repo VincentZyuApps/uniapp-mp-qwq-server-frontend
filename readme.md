@@ -83,7 +83,3 @@ git push github main
 详细部署流程请参考 [deploy.md](.github/workflows/deploy.md)。
 
 ---
-
-## 📄 License
-
-[MIT](./LICENSE)

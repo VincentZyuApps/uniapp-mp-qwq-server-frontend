@@ -1,9 +1,14 @@
 /.vscode/
 
-/unpackage/
+# 排除 unpackage 目录，但保留 H5 构建产物
+/unpackage/*
 !/unpackage/dist/
+/unpackage/dist/*
 !/unpackage/dist/build/
+/unpackage/dist/build/*
 !/unpackage/dist/build/web/
+# 递归保留 web 目录下的所有内容
+!/unpackage/dist/build/web/**
 
 /node_modules/
 /.hbuilderx/
