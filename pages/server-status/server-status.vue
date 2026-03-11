@@ -84,6 +84,7 @@
 import { ref, computed } from 'vue'
 import { onLoad } from '@dcloudio/uni-app'
 import { getNavBarHeight } from '@/utils/system.js'
+import { MCJAVA_API_BASE } from '@/utils/request.js'
 
 const scrollBoxHeight =  ref( getNavBarHeight() + 66 )
 
@@ -128,7 +129,7 @@ async function fetchStatus() {
 	data.value = {}
 	try {
 		const addr = servers.value[currentIdx.value].addr
-		const url = `https://us-cc.vincentzyu233.cn/fastapi_wrap/mcjava/server_status/${encodeURIComponent(addr)}`
+		const url = `${MCJAVA_API_BASE}/server_status/${encodeURIComponent(addr)}`
 		const res = await uni.request({ url, method: 'GET', timeout: 15000 })
 		if (res.statusCode >= 200 && res.statusCode < 300) {
 			data.value = res.data || {}

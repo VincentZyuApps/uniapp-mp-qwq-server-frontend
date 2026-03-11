@@ -57,7 +57,7 @@
                     <view class="PlayerCardHeader">
                         <view class="AvatarWrapper">
                             <image class="PlayerAvatar" 
-                                :src="`https://us-cc.vincentzyu233.cn/fastapi_wrap/mcjava/avatar/${item.realname}`" 
+                                :src="`${MCJAVA_API_BASE}/avatar/${item.realname}`" 
                                 mode="aspectFit"
                                 @load="onAvatarLoad(item.realname)"
                                 @error="onAvatarError(item.realname)" />
@@ -92,7 +92,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import { BASE_URL, qwq_request } from "@/utils/request.js"
+import { BASE_URL, MCJAVA_API_BASE, qwq_request } from "@/utils/request.js"
 import { onLoad } from "@dcloudio/uni-app"
 import { SYSTEM_INFO, getStatusBarHeight, getTitleBarHeight, getNavBarHeight, getLeftIcon } from '@/utils/system.js';
 import { getCurrentIdx } from "@/utils/page.js"

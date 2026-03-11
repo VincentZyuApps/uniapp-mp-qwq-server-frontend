@@ -1,48 +1,80 @@
-name: Deploy to GitHub Pages
+name: Deploy to GitHub Pages & Cloudflare Pages
 
 on:
   push:
     branches:
-      - main  # 当推送到 main 分支时触发
+      - main
 
   # 允许手动触发
   workflow_dispatch:
 
-# 设置 GITHUB_TOKEN 的权限
 permissions:
   contents: read
   pages: write
   id-token: write
+  deployments: write # Cloudflare Action 需要此权限
 
-# 只允许一个并发部署
 concurrency:
-  group: "pages"
+  group: pages
   cancel-in-progress: false
 
 jobs:
-  deploy:
+  # Job 1: 部署到 GitHub Pages
+  deploy-gh-pages:
     runs-on: ubuntu-latest
-    
+    if: "contains(github.event.head_commit.message, 'pub page') || github.event_name == 'workflow_dispatch'"
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
-      
-      - name: Fix asset paths for GitHub Pages
+
+      - name: Check build directory exists
         run: |
-          sed -i 's|/qsfrontend/|./|g' unpackage/dist/build/web/index.html
-      
+          if [ ! -d "unpackage/dist/build/web" ]; then
+            echo "❌ unpackage/dist/build/web 不存在！请先用 HBuilderX 构建 H5 并提交。"
+            exit 1
+          fi
+          echo "✅ 找到构建产物，准备部署..."
+          ls -la unpackage/dist/build/web/
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
-      
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: './unpackage/dist/build/web'
-  
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-        
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+
+  # Job 2: 部署到 Cloudflare Pages
+  deploy-cf-pages:
+    runs-on: ubuntu-latest
+    if: "contains(github.event.head_commit.message, 'pub page') || github.event_name == 'workflow_dispatch'"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check build directory exists
+        run: |
+          if [ ! -d "unpackage/dist/build/web" ]; then
+            echo "❌ unpackage/dist/build/web 不存在！请先用 HBuilderX 构建 H5 并提交。"
+            exit 1
+          fi
+          echo "✅ 找到构建产物，准备部署..."
+
+      - name: Publish to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: uniapp-mp-qwq-server-frontend  # ⚠️ 需与 Cloudflare Dashboard 中创建的项目名一致
+          directory: './unpackage/dist/build/web'
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}

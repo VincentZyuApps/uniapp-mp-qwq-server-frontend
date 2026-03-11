@@ -99,7 +99,7 @@
 
 <script setup>
 	import { ref } from 'vue';
-	import { BASE_URL, qwq_request } from "@/utils/request.js"
+	import { BASE_URL, MCJAVA_API_BASE, qwq_request } from "@/utils/request.js"
 	import { onLoad } from "@dcloudio/uni-app";
 	import { SYSTEM_INFO, getStatusBarHeight, getTitleBarHeight, getNavBarHeight, getLeftIcon } from '@/utils/system.js';
 	
@@ -269,7 +269,7 @@
 		displayEntriesList.value.forEach( o=>{
 			// o.avatar_url = `https://minotar.net/avatar/${o.name}`
 			// o.avatar_url = `https://vkvm.vincentzyu233.xyz/fastapi_skin_wrap/mcjava/avatar/${o.name}`;
-			o.avatar_url = `https://us-cc.vincentzyu233.cn/fastapi_wrap/mcjava/avatar/${o.name}`;
+			o.avatar_url = `${MCJAVA_API_BASE}/avatar/${o.name}`;
 			
 			// 初始化头像加载状态
 			avatarLoaded.value[o.name] = false;
