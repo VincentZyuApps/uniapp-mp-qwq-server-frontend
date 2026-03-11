@@ -6,9 +6,26 @@
 
 面向 Minecraft 服务器的配套小程序前端，用于展示服务器相关的榜单、玩家与文档信息，便于玩家快速了解与参与服务器活动。
 
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/VincentZyuApps/uniapp-mp-qwq-server-frontend)
+[![Gitee](https://img.shields.io/badge/Gitee-C71D23?style=for-the-badge&logo=gitee&logoColor=white)](https://gitee.com/vincent-zyu/uniapp-mp-qwq-server-frontend)
+
+### 🎮 服务器信息
+
+| | |
+| :--- | :--- |
+| 🖥️ **MOTD** | ![Server MOTD](./doc/motd_bc.vincentzyu233.cn.png) |
+| 🌍 **服务器地址** | `bc.vincentzyu233.cn` |
+| ☕ **推荐版本** | Minecraft Java 1.21 ~ 1.21.8 |
+| 🎉 **欢迎来玩捏~** | 直接添加服务器地址即可进服！ |
+
+<p><del>💬 使用问题 / 🐛 Bug反馈 / 👨‍💻 开发交流，聊天吹水，欢迎加入QQ群：<b>259248174</b>   🎉（这个群G了</del> </p> 
+<p>💬 使用问题 / 🐛 Bug反馈 / 👨‍💻 开发交流，聊天吹水，欢迎加入QQ群：<b>1085190201</b> 🎉</p>
+<p>💡 在群里直接艾特我，回复的更快哦~ ✨</p>
+
+
 ---
 
-## 🌐 在线访问
+## 🌐 在线访问 · Web (H5) ✅
 
 <a href="https://vincentzyuapps.github.io/uniapp-mp-qwq-server-frontend/">
   <img src="https://img.shields.io/badge/📖_GitHub_Pages-vincentzyuapps.github.io-6c63ff?style=for-the-badge&logo=github&logoColor=white&labelColor=181717" alt="GitHub Pages" />
@@ -16,6 +33,10 @@
 
 <a href="https://uniapp-mp-qwq-server-frontend.pages.dev">
   <img src="https://img.shields.io/badge/⚡_Cloudflare_Pages-pages.dev-9b59b6?style=for-the-badge&logo=cloudflare&logoColor=white&labelColor=f38020" alt="Cloudflare Pages" />
+</a>
+
+<a href="https://sh-aliyun2.vincentzyu233.cn/qwq-server/#/">
+  <img src="https://img.shields.io/badge/☁️China_阿里云-上海自建节点-ff6a00?style=for-the-badge&logo=alibabacloud&logoColor=white&labelColor=ff6a00" alt="Alibaba Cloud" />
 </a>
 
 ---
@@ -26,7 +47,7 @@
 
 | 发行平台 | 状态 |
 | :--- | :--- |
-| 🌍 Web (H5) | ✅ 已发行 |
+| 🌍 Web (H5) | ✅ 已发行（↑ 上方三个节点均可访问） |
 | 💬 QQ 小程序 | ✅ 已发行 |
 
 ---
