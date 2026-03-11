@@ -649,8 +649,15 @@ function onAvatarError(name){
     }
 
     .RefreshButton:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(76, 175, 80, 0.35);
+        background: linear-gradient(145deg, #56c05a, #4db851);
+    }
+    
+    .RefreshButton:active {
+        transform: translateY(1px) scale(0.97);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        transition: all 0.1s ease;
     }
 
     .PlayerDataScrollBox {
@@ -761,9 +768,10 @@ function onAvatarError(name){
     padding: 27rpx;
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         border: 1px solid rgba(255, 255, 255, 0.2);
-        transition: all 0.3s ease;
+        transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         width: 100%;
         box-sizing: border-box;
+        cursor: pointer;
         
         @media (max-width: 600px) {
             max-width: 100%;
@@ -780,8 +788,14 @@ function onAvatarError(name){
     }
 
     .PlayerCard:hover {
-        transform: translateY(-10rpx);
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        transform: translateY(-10rpx) scale(1.02);
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.18);
+    }
+
+    .PlayerCard:active {
+        transform: translateY(-2rpx) scale(0.98);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: all 0.1s ease;
     }
 
     .PlayerCardHeader {
@@ -799,6 +813,13 @@ function onAvatarError(name){
         border-radius: 15rpx;
         margin-right: 20rpx;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        cursor: pointer;
+    }
+
+    .PlayerCard:hover .PlayerAvatar {
+        transform: scale(1.12) rotate(5deg);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     }
 
     .PlayerInfo {
@@ -821,6 +842,13 @@ function onAvatarError(name){
         padding: 4rpx 12rpx;
         border-radius: 10rpx;
         display: inline-block;
+        transition: all 0.3s ease;
+    }
+
+    .PlayerCard:hover .PlayerRank {
+        background: rgba(76, 175, 80, 0.25);
+        color: #2e7d32;
+        transform: scale(1.1);
     }
 
     .PlayerDetails {

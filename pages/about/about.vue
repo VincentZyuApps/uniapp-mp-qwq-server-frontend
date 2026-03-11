@@ -10,7 +10,7 @@
 					
 					<view class="section">
 						<text class="description">
-							这是一个基于 uni-app 开发的 Minecraft 服务器配套小程序，支持多平台部署： Web、微信小程序、QQ小程序。
+							🎮 拨无因果的神秘小 Minecraft 服的配套小程序捏~ 基于 UniApp 开发，支持跑酷榜单、玩家查询、入服指南等功能，目前已发行到 Web 和 QQ小程序 ✨ 
 						</text>
 					</view>
 					
@@ -56,21 +56,31 @@
 					</view>
 					
 					<view class="section">
-						<view class="section-title">GitHub 仓库</view>
-						<view class="github-link" @click="handleGitHubClick">
+						<view class="section-title">开源仓库</view>
+						<view class="repo-link github-link" @click="handleGitHubClick">
 							<image 
-								class="github-icon" 
+								class="repo-icon" 
 								src="../../static/github-mark.png" 
 								mode="aspectFit"
 							></image>
-							<text class="link-text">ichozero/uniapp-mp-qwq-server-frontend</text>
+							<view class="repo-info">
+								<text class="link-text">VincentZyuApps/uniapp-mp-qwq-server-frontend</text>
+								<text class="url-text">{{ githubUrl }}</text>
+							</view>
 							<text class="action-hint">{{ actionHint }}</text>
 						</view>
-					</view>
-					
-					<view class="section">
-						<view class="repo-url">
-							<text class="url-text">{{ repoUrl }}</text>
+						
+						<view class="repo-link gitee-link" @click="handleGiteeClick">
+							<image 
+								class="repo-icon" 
+								src="https://gitee.com/favicon.ico" 
+								mode="aspectFit"
+							></image>
+							<view class="repo-info">
+								<text class="link-text">vincent-zyu/uniapp-mp-qwq-server-frontend</text>
+								<text class="url-text">{{ giteeUrl }}</text>
+							</view>
+							<text class="action-hint">{{ actionHint }}</text>
 						</view>
 					</view>
 				</view>
@@ -85,7 +95,8 @@
 import { ref, computed } from 'vue'
 import { onLoad } from '@dcloudio/uni-app'
 
-const repoUrl = 'https://github.com/ichozero/uniapp-mp-qwq-server-frontend'
+const githubUrl = 'https://github.com/VincentZyuApps/uniapp-mp-qwq-server-frontend'
+const giteeUrl = 'https://gitee.com/vincent-zyu/uniapp-mp-qwq-server-frontend'
 
 // Platform-specific action hint
 const actionHint = computed(() => {
@@ -102,14 +113,12 @@ const actionHint = computed(() => {
 
 function handleGitHubClick() {
 	// #ifdef H5
-	// Web platform: open in new tab
-	window.open(repoUrl, '_blank')
+	window.open(githubUrl, '_blank')
 	// #endif
 	
 	// #ifdef MP-WEIXIN || MP-QQ
-	// Mini program: copy to clipboard
 	uni.setClipboardData({
-		data: repoUrl,
+		data: githubUrl,
 		success: () => {
 			uni.showToast({
 				title: '已复制到剪贴板',
@@ -128,9 +137,54 @@ function handleGitHubClick() {
 	// #endif
 	
 	// #ifndef H5 || MP-WEIXIN || MP-QQ
-	// Other platforms: copy to clipboard as fallback
 	uni.setClipboardData({
-		data: repoUrl,
+		data: githubUrl,
+		success: () => {
+			uni.showToast({
+				title: '已复制到剪贴板',
+				icon: 'success',
+				duration: 2000
+			})
+		},
+		fail: () => {
+			uni.showToast({
+				title: '复制失败',
+				icon: 'none',
+				duration: 2000
+			})
+		}
+	})
+	// #endif
+}
+
+function handleGiteeClick() {
+	// #ifdef H5
+	window.open(giteeUrl, '_blank')
+	// #endif
+	
+	// #ifdef MP-WEIXIN || MP-QQ
+	uni.setClipboardData({
+		data: giteeUrl,
+		success: () => {
+			uni.showToast({
+				title: '已复制到剪贴板',
+				icon: 'success',
+				duration: 2000
+			})
+		},
+		fail: () => {
+			uni.showToast({
+				title: '复制失败',
+				icon: 'none',
+				duration: 2000
+			})
+		}
+	})
+	// #endif
+	
+	// #ifndef H5 || MP-WEIXIN || MP-QQ
+	uni.setClipboardData({
+		data: giteeUrl,
 		success: () => {
 			uni.showToast({
 				title: '已复制到剪贴板',
@@ -201,6 +255,61 @@ onLoad((event) => {
 	box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.15);
 	width: 100%;
 	max-width: 680rpx;
+	animation: cardFadeIn 0.5s ease-out;
+}
+
+@keyframes cardFadeIn {
+	from { opacity: 0; transform: translateY(20px); }
+	to { opacity: 1; transform: translateY(0); }
+}
+
+/* 大屏幕适配：电脑端更宽 */
+@media (min-width: 768px) {
+	.card {
+		max-width: 800px;
+		padding: 50rpx 60rpx;
+	}
+	
+	.logo-image {
+		width: 180rpx;
+		height: 180rpx;
+	}
+	
+	.title {
+		font-size: 56rpx;
+	}
+	
+	.section-title {
+		font-size: 36rpx;
+	}
+	
+	.description {
+		font-size: 32rpx;
+	}
+	
+	.feature-item {
+		padding: 24rpx;
+	}
+	
+	.feature-name {
+		font-size: 32rpx;
+	}
+	
+	.feature-desc {
+		font-size: 26rpx;
+	}
+	
+	.repo-link {
+		padding: 28rpx;
+	}
+	
+	.link-text {
+		font-size: 30rpx;
+	}
+	
+	.url-text {
+		font-size: 24rpx;
+	}
 }
 
 .logo-image {
@@ -238,12 +347,22 @@ onLoad((event) => {
 	font-weight: 600;
 	color: #555;
 	margin-bottom: 16rpx;
+	transition: color 0.3s ease;
+}
+
+.section-title:hover {
+	color: #667eea;
 }
 
 .description {
 	font-size: 28rpx;
 	color: #666;
 	line-height: 1.6;
+	transition: color 0.3s ease;
+}
+
+.description:hover {
+	color: #444;
 }
 
 .features-list {
@@ -271,8 +390,9 @@ onLoad((event) => {
 }
 
 .feature-item:active {
-	transform: scale(0.98) translateX(4rpx);
+	transform: scale(0.97);
 	box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.08);
+	transition: all 0.1s ease;
 }
 
 .feature-icon {
@@ -280,6 +400,11 @@ onLoad((event) => {
 	margin-right: 16rpx;
 	flex-shrink: 0;
 	line-height: 1;
+	transition: transform 0.3s ease;
+}
+
+.feature-item:hover .feature-icon {
+	transform: scale(1.2) rotate(-10deg);
 }
 
 .feature-content {
@@ -293,52 +418,72 @@ onLoad((event) => {
 	font-size: 28rpx;
 	font-weight: 600;
 	color: #333;
-.github-link {
+}
+
+.feature-desc {
+	font-size: 24rpx;
+	color: #888;
+}
+
+.repo-link {
 	display: flex;
 	align-items: center;
 	padding: 24rpx;
-	background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 	border-radius: 16rpx;
 	cursor: pointer;
 	transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 	box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
 	gap: 16rpx;
-	flex-wrap: wrap;
+	margin-bottom: 16rpx;
+}
+
+.repo-link:last-child {
+	margin-bottom: 0;
+}
+
+.github-link {
+	background: linear-gradient(135deg, #f5f7fa 0%, #e4e7eb 100%);
 }
 
 .github-link:hover {
-	transform: scale(1.08) translateY(-6rpx) rotateY(-3deg) rotateX(3deg);
-	background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-	box-shadow: 0 20rpx 50rpx rgba(33, 150, 243, 0.3),
-	            0 0 40rpx rgba(102, 126, 234, 0.25),
-	            inset 0 2rpx 8rpx rgba(255, 255, 255, 0.6);
+	transform: scale(1.03) translateY(-4rpx);
+	background: linear-gradient(135deg, #e8eaed 0%, #d4d7dc 100%);
+	box-shadow: 0 12rpx 32rpx rgba(36, 41, 46, 0.2);
 }
 
-.github-link:active {
+.gitee-link {
+	background: linear-gradient(135deg, #fff5f5 0%, #ffe4e4 100%);
+}
+
+.gitee-link:hover {
+	transform: scale(1.03) translateY(-4rpx);
+	background: linear-gradient(135deg, #ffe8e8 0%, #ffd4d4 100%);
+	box-shadow: 0 12rpx 32rpx rgba(199, 29, 35, 0.2);
+}
+
+.repo-link:active {
 	transform: scale(0.98);
 	box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.12);
-}transition: transform 0.2s, box-shadow 0.2s;
-	box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
-	gap: 16rpx;
-	flex-wrap: wrap;
 }
 
-.github-link:active {
-	transform: scale(0.98);
-	box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.12);
-}
-
-.github-icon {
+.repo-icon {
 	width: 48rpx;
 	height: 48rpx;
 	flex-shrink: 0;
 }
 
+.repo-info {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 4rpx;
+	min-width: 0;
+}
+
 .link-text {
-	font-size: 28rpx;
+	font-size: 26rpx;
 	color: #333;
 	font-weight: 500;
-	flex: 1;
 	word-break: break-word;
 }
 
@@ -349,18 +494,18 @@ onLoad((event) => {
 	background: rgba(102, 126, 234, 0.1);
 	border-radius: 8rpx;
 	white-space: nowrap;
+	flex-shrink: 0;
+	transition: all 0.3s ease;
 }
 
-.repo-url {
-	padding: 20rpx;
-	background: #f8f9fa;
-	border-radius: 12rpx;
-	border-left: 6rpx solid #667eea;
+.repo-link:hover .action-hint {
+	background: rgba(102, 126, 234, 0.25);
+	transform: scale(1.05);
 }
 
 .url-text {
-	font-size: 24rpx;
-	color: #666;
+	font-size: 22rpx;
+	color: #888;
 	word-break: break-all;
 	font-family: 'Courier New', monospace;
 }

@@ -1,8 +1,8 @@
 {
     "name" : "uniapp-qwq-server",
     "appid" : "__UNI__850E479",
-    "description" : "qwq拨无因果的神秘小服服",
-    "versionName" : "0.2.1-beta.2",
+    "description" : "🎮 拨无因果的神秘小 Minecraft 服的配套小程序捏~ 基于 UniApp 开发，支持跑酷榜单、玩家查询、入服指南等功能，目前已发行到 Web 和 QQ小程序 ✨ ",
+    "versionName" : "0.3.0-beta.2",
     "versionCode" : 20260312,
     "transformPx" : false,
     /* 5+App特有相关 */

@@ -1,4 +1,4 @@
-﻿![uniapp-mp-qwq-server-frontend](https://socialify.git.ci/VincentZyuApps/uniapp-mp-qwq-server-frontend/image?description=1&forks=1&issues=1&language=1&logo=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F250448479%3Fs%3D200%26v%3D4&name=1&owner=1&pulls=1&stargazers=1&tab=readme-ov-file%3Flanguage%3D1&theme=Light)
+﻿![uniapp-mp-qwq-server-frontend](https://socialify.git.ci/VincentZyuApps/uniapp-mp-qwq-server-frontend/image?description=1&font=JetBrains+Mono&forks=1&issues=1&language=1&logo=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F250448479%3Fs%3D200%26v%3D4&name=1&owner=1&pattern=Signal&pulls=1&stargazers=1&tab=readme-ov-file%3Flanguage%3D1&theme=Auto)
 
 # ⛏️ uniapp-mp-qwq-server-frontend
 

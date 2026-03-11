@@ -1,15 +1,7 @@
 <template>
 	<view class="outout">
 		
-<!-- 		<view class="debug">
-			[debug]ref vars: <br>
-			x={{props.x}}, y={{props.y}} <br>
-			idxIndicatorStyle={{idxIndicatorStyle}}
-		</view> -->
-		
-		<view :class="[ 'idxIndicator', idxIndicatorStyle ]">
-			<!-- {{idxIndicatorStyle}} -->
-		</view>
+		<view class="idxIndicator" :style="indicatorStyle"></view>
 		
 		<view class="left">
 			<!-- Left Content -->
@@ -48,42 +40,86 @@
 </template>
 
 <script setup>
-	import { defineProps, ref, onMounted } from "vue";
-	import { onLoad, onReady, onShow, onHide, onUnload, onPageScroll } from "@dcloudio/uni-app";
+	import { defineProps, ref, getCurrentInstance, computed, nextTick, onMounted } from "vue";
 	import { getCurrentIdx } from "@/utils/page.js"
-		
-	const props = defineProps( {
-		x:{
-			type: Number,
-			default: 0
-		},
-		y:{
-			type: Number,
-			default: 0
-		}
-	} );
-	
-	const idxIndicatorStyle = ref('');
 
-	onLoad((event) => {
-		const paramLastIdx = event.LastIdx ? event.LastIdx : 0;
-		console.log("getLastIdx(): get param LastIdx from url: ", paramLastIdx );
-		// idxIndicatorStyle.value = `idxIndicator${Number( paramLastIdx )}`
-		
-		idxIndicatorStyle.value = `idxIndicator${Number( props.x )}`
-		setTimeout(() => {
-		  idxIndicatorStyle.value = `idxIndicator${props.y}`
-		}, 111);
+	const instance = getCurrentInstance();
+
+	const props = defineProps({
+		x: { type: Number, default: 0 },
+		y: { type: Number, default: 0 }
 	});
 
-	const toUrl=(url)=>{
+	// --- Indicator dynamic positioning ---
+	const indicatorLeft = ref(0);     // left offset in px relative to .outout
+	const indicatorReady = ref(false);
+	const indicatorAnimated = ref(false);
+
+	// Map tab index → CSS selector of the nav item
+	const idxSelectors = [
+		'.circle',       // 0  banner
+		'.icon1',        // 1  scoreboard
+		'.icon2',        // 2  authme
+		'.icon3',        // 3  mark-guide
+		'.icon4',        // 4  server-status
+		'.rightButton',  // 5  about
+	];
+
+	function queryRect(selector) {
+		return new Promise((resolve) => {
+			uni.createSelectorQuery().in(instance.proxy)
+				.select(selector)
+				.boundingClientRect((rect) => resolve(rect))
+				.exec();
+		});
+	}
+
+	async function moveIndicator(idx) {
+		const selector = idxSelectors[idx];
+		if (!selector) return;
+		const targetRect = await queryRect(selector);
+		if (targetRect) {
+			// .outout is position:relative inside .down-nav which is position:fixed;left:0
+			// so targetRect.left (viewport-relative) == offset from .outout left edge
+			indicatorLeft.value = targetRect.left + targetRect.width / 2;
+			indicatorReady.value = true;
+		}
+	}
+
+	const indicatorStyle = computed(() => {
+		if (!indicatorReady.value) return { opacity: '0' };
+		return {
+			left: indicatorLeft.value + 'px',
+			transform: 'translateX(-50%)',
+			opacity: '1',
+			transition: indicatorAnimated.value ? 'left 0.25s ease-out, opacity 0.2s' : 'none'
+		};
+	});
+
+	onMounted(() => {
+		// Wait for DOM to fully render
+		nextTick(() => {
+			setTimeout(() => {
+				// 1) Instantly position at the previous-page index (no animation)
+				moveIndicator(props.x).then(() => {
+					// 2) Then slide to the current-page index
+					setTimeout(() => {
+						indicatorAnimated.value = true;
+						moveIndicator(props.y);
+					}, 80);
+				});
+			}, 50);
+		});
+	});
+
+	// --- Navigation ---
+	const toUrl = (url) => {
 		const CurrentIdx = getCurrentIdx();
 		uni.reLaunch({
-			url:`${url}?LastIdx=${CurrentIdx}`
-		})
+			url: `${url}?LastIdx=${CurrentIdx}`
+		});
 		console.log("to url:", url);
-	}
-	
+	};
 </script>
 
 <style lang="scss">
@@ -91,67 +127,21 @@
 	// border: 1px solid red;
 	background-color: rgba(0,0,0,0);
 	display: flex;
+	position: relative;
 	width: 100vw;
-	
-	.debug{
-		z-index: 1919810;
-		position: absolute;
-		transform: translateY(-100px);
-		top: 0; left: 0;
-	}
 
 	.idxIndicator{
 		z-index: 114514;
 		position: absolute;
 		bottom: 5px;
+		left: 0;
 		height: 6rpx;
 		width: 60rpx;
+		border-radius: 3rpx;
 		background-color: rgba(43, 108, 248, 0.808);
 		box-shadow: 0px -5px 15px 5px rgba(63, 60, 241, 0.4);
-		
-		transition: all 0.222s ease-out;
-	}
-	
-	.idxIndicator.idxIndicator0{
-		left: 52rpx;
-		// transform: translateX(5px); /* 向下平移10px */
-		
-		transition: all 0.222s ease-out;
-	}
-	
-	.idxIndicator.idxIndicator1{
-		left: 150rpx;
-		// transform: translateX(10px); /* 向下平移10px */
-		
-		transition: all 0.222s ease-out;
-	}
-	
-	.idxIndicator.idxIndicator2{
-		left: 258rpx; 
-		// transform: translateX(15px); /* 向下平移10px */
-		
-		transition: all 0.222s ease-out;
-	}
-	
-	.idxIndicator.idxIndicator3{
-		left: 361rpx; 
-		// transform: translateX(20px); /* 向下平移10px */
-		
-		transition: all 0.222s ease-out;
-	}
-	
-	.idxIndicator.idxIndicator4{
-		left: 463rpx; 
-		// transform: translateX(25px); /* 向下平移10px */
-		
-		transition: all 0.222s ease-out;
-	}
-	
-	.idxIndicator.idxIndicator5{
-		left: 610rpx;
-		// transform: translateX(25px); /* 向下平移10px */
-		
-		transition: all 0.222s ease-out;
+		will-change: left;
+		pointer-events: none;
 	}
 	
 	

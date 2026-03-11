@@ -165,7 +165,6 @@
 	.ScoreboardOutBox {
 		border: 1px solid rgba(111, 111, 111, 0.3);
 		background-color: rgba(0, 0, 0, 0.2);
-		// border: 2px solid green;
 		border-radius: 10px;
 		width: 222px;
 		height: 90px;
@@ -174,7 +173,20 @@
 		display: inline-block;
 		position: relative;
 		box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.1);
-		transition: transform 0.45s, box-shadow 0.45s;
+		transition: all 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+		cursor: pointer;
+	}
+	
+	.ScoreboardOutBox:hover {
+	  background-color: rgba(0, 0, 0, 0.35);
+	  transform: translateY(-3px) scale(1.05);
+	  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+	}
+	
+	.ScoreboardOutBox:active {
+	  transform: translateY(2px) scale(0.97);
+	  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+	  transition: all 0.1s;
 	}
 	
 	.ScoreboardOutBox.active {
@@ -231,17 +243,21 @@
 	    border-left: 6rpx solid #ccc;
 	    color: #666;
 	    background-color: #f9f9f9;
+	    transition: all 0.3s ease;
 	  }
 	
 	  img {
 	    max-width: 100%;
 	    border-radius: 10rpx;
 	    margin: 20rpx 0;
+	    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+	    cursor: pointer;
 	  }
 	
 	  a {
 	    color: #42b983;
 	    text-decoration: underline;
+	    transition: all 0.2s ease;
 	  }
 	
 	  pre, code {

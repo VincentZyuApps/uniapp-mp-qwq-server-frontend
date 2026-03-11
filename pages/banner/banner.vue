@@ -190,13 +190,35 @@ import { SYSTEM_INFO } from '../../utils/system';
 
 	@keyframes spin{ to { transform: rotate(360deg); } }
 
-	.BannerImageWrapper{ position: relative; width:100%; height:100%; }
+	.BannerImageWrapper{ position: relative; width:100%; height:100%; cursor: pointer; }
 	.BannerSpinner{
 		position: absolute;
 		left: 50%;
 		top: 50%;
 		transform: translate(-50%, -50%);
 		z-index: 1500;
+	}
+
+	.BannerErrorText {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		color: #999;
+		font-size: 28rpx;
+		z-index: 1500;
+	}
+
+	/* banner image interactive effects */
+	.banner swiper swiper-item image {
+		transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	}
+	.banner swiper swiper-item image:hover {
+		filter: brightness(1.08) contrast(1.05);
+	}
+	.banner swiper swiper-item image:active {
+		filter: brightness(0.92);
+		transition: all 0.15s ease;
 	}
 	.BannerErrorText{ position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); color:#b33; background:rgba(255,255,255,0.9); padding:10rpx 18rpx; border-radius:8rpx; }
 </style>

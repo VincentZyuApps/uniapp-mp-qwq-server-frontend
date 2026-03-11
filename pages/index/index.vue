@@ -440,7 +440,6 @@
 	.ScoreboardOutBox {
 		border: 1px solid rgba(111, 111, 111, 0.3);
 		background-color: rgba(0, 0, 0, 0.2);
-		// border: 2px solid green;
 		border-radius: 10px;
 		width: 155px;
 		height: 60px;
@@ -449,7 +448,20 @@
 		display: inline-block;
 		position: relative;
 		box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.1);
-		transition: transform 0.45s, box-shadow 0.45s;
+		transition: all 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+		cursor: pointer;
+	}
+	
+	.ScoreboardOutBox:hover {
+	  background-color: rgba(0, 0, 0, 0.35);
+	  transform: translateY(-3px) scale(1.05);
+	  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+	}
+	
+	.ScoreboardOutBox:active {
+	  transform: translateY(2px) scale(0.97);
+	  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+	  transition: all 0.1s;
 	}
 	
 	.ScoreboardOutBox.active {
@@ -730,7 +742,7 @@
 		
 		/* 自定义玩家卡片样式 */
 		.EntryBox {
-			transition: transform 0.3s ease-out;
+			transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 			border: 1px solid rgba(0,0,0,0.2);
 			box-shadow: 0 4px 8px rgba(5, 5, 1, 0.4);
 			border-radius: 10rpx;
@@ -740,10 +752,18 @@
 			display: flex; 
 			flex-direction: column; 
 			align-items: flex-start;
+			cursor: pointer;
 		}
 		
-		.EntryBox:hover, .EntryBox:active {
-		    transform: scale(1.05);
+		.EntryBox:hover {
+		    transform: scale(1.05) translateY(-4px);
+		    box-shadow: 0 12px 24px rgba(5, 5, 1, 0.5);
+		}
+		
+		.EntryBox:active {
+		    transform: scale(0.98);
+		    box-shadow: 0 2px 4px rgba(5, 5, 1, 0.3);
+		    transition: all 0.1s ease;
 		}
 		
 		.EntryImageWrapper {
@@ -863,6 +883,12 @@
 			border-radius: 0 0 6rpx 0;
 			transform: scale(0.8);
 			transform-origin: left top;
+			transition: all 0.3s ease;
+		}
+		
+		.EntryBox:hover .EntryRank {
+			background: rgba(250,129,90,0.95);
+			transform: scale(1);
 		}
 	}
 	
