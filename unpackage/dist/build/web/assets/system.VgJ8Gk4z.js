@@ -1,1 +1,0 @@
-import{C as t}from"./index-D79phuLK.js";const e=t(),n=()=>e.statusBarHeight||0,i=()=>n()+(()=>{let t;if(uni.getMenuButtonBoundingClientRect){let{top:e,height:i}=uni.getMenuButtonBoundingClientRect();t=i+2*(e-n())}else t=60;return t})();export{e as S,i as a,n as g};

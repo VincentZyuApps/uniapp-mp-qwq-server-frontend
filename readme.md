@@ -1,36 +1,89 @@
-[English README](./readme_en.md)
+﻿# ⛏️ uniapp-mp-qwq-server-frontend
 
-# 服务器配套小程序（uniapp-mp-qwq-server-frontend）
+> 拨无因果的神秘小 Minecraft 服的配套小程序捏~ 🎮
 
-面向 Minecraft 服务器的配套小程序前端。用于展示服务器相关的榜单、玩家与文档信息，便于玩家快速了解与参与服务器活动。
+面向 Minecraft 服务器的配套小程序前端，用于展示服务器相关的榜单、玩家与文档信息，便于玩家快速了解与参与服务器活动。
 
-## 页面一览
+---
 
-0. Banner 海报（服务器截图轮播）
-   - 展示服务器截图与公告。
-   
-   ![Banner 海报](./doc/banner_list.png)
+## 🌐 在线访问
 
-1. Index 跑酷计分板
-   - 展示跑酷榜单，支持按不同维度排序与刷新。
+<a href="https://vincentzyuapps.github.io/uniapp-mp-qwq-server-frontend/">
+  <img src="https://img.shields.io/badge/📖_GitHub_Pages-vincentzyuapps.github.io-6c63ff?style=for-the-badge&logo=github&logoColor=white&labelColor=181717" alt="GitHub Pages" />
+</a>
 
-   ![跑酷计分板](./doc/java_parkour.png)
+<a href="https://uniapp-mp-qwq-server-frontend.pages.dev">
+  <img src="https://img.shields.io/badge/⚡_Cloudflare_Pages-pages.dev-9b59b6?style=for-the-badge&logo=cloudflare&logoColor=white&labelColor=f38020" alt="Cloudflare Pages" />
+</a>
 
-2. AuthMe 历史注册玩家列表
-   - 支持按玩家名模糊搜索，显示注册时间与最后登录时间。
+---
 
-   ![历史注册玩家列表](./doc/authme_list.png)
+## 📖 简介
 
-3. Markdown 进服指导文档
-   - 使用 Markdown 编写的简易入服指南与资源链接。
+本项目为「拨无因果」Minecraft 服务器的配套小程序前端，采用 **UniApp (Vue 3)** 技术栈开发，支持多端构建与部署。
 
-   ![进服指导文档](./doc/markdown_guide.png)
+| 发行平台 | 状态 |
+| :--- | :--- |
+| 🌍 Web (H5) | ✅ 已发行 |
+| 💬 QQ 小程序 | ✅ 已发行 |
 
-4. About关于
-   - 展示本网站的一些信息捏
-   ![关于页面](./doc/about.png)
+---
 
-## 简介
+## 📱 页面一览
 
-本项目为“服务器配套小程序”前端部分，采用 UniApp 技术栈开发，适用于小程序/H5 等多端构建与部署。根据服务器实际需求，可对页面与接口进行裁剪或扩展。
+### 0. Banner 海报（服务器截图轮播）
+展示服务器截图与公告。
 
+![Banner 海报](./doc/banner_list.png)
+
+### 1. Index 跑酷计分板
+展示跑酷榜单，支持按不同维度排序与刷新。
+
+![跑酷计分板](./doc/java_parkour.png)
+
+### 2. AuthMe 历史注册玩家列表
+支持按玩家名模糊搜索，显示注册时间与最后登录时间。
+
+![历史注册玩家列表](./doc/authme_list.png)
+
+### 3. Markdown 进服指导文档
+使用 Markdown 编写的简易入服指南与资源链接。
+
+![进服指导文档](./doc/markdown_guide.png)
+
+### 4. About 关于
+展示本网站的一些信息捏~
+
+![关于页面](./doc/about.png)
+
+---
+
+## 🛠️ 技术栈
+
+| 技术 | 说明 |
+| :--- | :--- |
+| [UniApp](https://uniapp.dcloud.net.cn/) | 多端统一开发框架 |
+| Vue 3 | 前端框架 |
+| [Marked](https://marked.js.org/) | Markdown 渲染 |
+| HBuilderX | 构建工具 |
+
+---
+
+## 🚀 部署
+
+本项目使用 GitHub Actions 自动部署到 **GitHub Pages** 和 **Cloudflare Pages**。
+
+在 commit message 中包含 `pub page` 关键词即可触发部署：
+
+```bash
+git commit -m "update: 更新内容 (pub page)"
+git push github main
+```
+
+详细部署流程请参考 [deploy.md](.github/workflows/deploy.md)。
+
+---
+
+## 📄 License
+
+[MIT](./LICENSE)

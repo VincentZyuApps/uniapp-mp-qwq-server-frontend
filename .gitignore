@@ -6,3 +6,5 @@
 !/unpackage/dist/build/web/
 
 /node_modules/
+/.hbuilderx/
+/tmp/
