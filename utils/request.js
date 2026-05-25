@@ -9,7 +9,9 @@ export const BASE_URL = 'https://sh-aliyun2.vincentzyu233.cn/'
 
 // MC Java 皮肤/头像/服务器状态 API（EdgeOne CDN 加速）
 // export const MCJAVA_API_BASE = 'https://eo-us-hudiyun.vincentzyu233.cn/nginx_gin_skin/gin_skin_wrap/mcjava'
-export const MCJAVA_API_BASE = 'https://us-hudiyun.vincentzyu233.cn/nginx_gin_skin/gin_skin_wrap/mcjava'
+// export const MCJAVA_API_BASE = 'https://us-hudiyun.vincentzyu233.cn/nginx_gin_skin/gin_skin_wrap/mcjava'
+// export const MCJAVA_API_BASE = 'https://eo-sh-xwl.vincentzyu233.cn/nginx_gin_skin/gin_skin_wrap/mcjava'
+export const MCJAVA_API_BASE = 'https://xwl.vincentzyu233.cn/nginx_gin_skin/gin_skin_wrap/mcjava'
 
 
 export function qwq_request(config = {}) {

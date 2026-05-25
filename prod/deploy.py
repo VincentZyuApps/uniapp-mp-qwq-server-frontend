@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-deploy_to_server.py — 一键部署 UniApp H5 到云服务器
+deploy.py — 一键部署 UniApp H5 到云服务器
 流程：本地 7z 打包 → rsync 上传 → SSH 远程解压覆盖
 
 所有敏感信息通过环境变量传入，脚本本身不含任何密钥/IP。
@@ -23,6 +23,7 @@ from pathlib import Path
 
 # ==================== 配置 ====================
 
+
 def env(key: str, default: str = "") -> str:
     """读取环境变量，未设置时返回默认值"""
     return os.environ.get(key, default)
@@ -39,13 +40,19 @@ def require_env(key: str) -> str:
 
 # ==================== 工具函数 ====================
 
+
 def run(cmd: str | list, cwd: str = None, check: bool = True, shell: bool = False):
     """执行命令并实时输出"""
     print(f"\n🔧 执行: {cmd if isinstance(cmd, str) else ' '.join(cmd)}")
     print("-" * 60)
     result = subprocess.run(
-        cmd, cwd=cwd, check=check, shell=shell,
-        text=True, encoding="utf-8", errors="replace"
+        cmd,
+        cwd=cwd,
+        check=check,
+        shell=shell,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
     )
     return result
 
@@ -73,6 +80,7 @@ def build_scp_cmd(host: str, port: str, user: str, key: str = "") -> list:
 
 # ==================== 主流程 ====================
 
+
 def main():
     print("=" * 60)
     print("🚀 UniApp H5 一键部署脚本")
@@ -87,8 +95,8 @@ def main():
     z7_path = env("DEPLOY_7Z_PATH", "7z")
 
     # 2. 确定本地路径
-    # 脚本所在目录即项目根目录
-    project_root = Path(__file__).resolve().parent
+    # 脚本在 prod/ 目录，项目根目录是上一级
+    project_root = Path(__file__).resolve().parent.parent
     build_dir = project_root / "unpackage" / "dist" / "build"
     web_dir = build_dir / "web"
     zip_file = build_dir / "web.zip"
@@ -110,7 +118,10 @@ def main():
         zip_file.unlink()
         print(f"   已删除旧的 {zip_file.name}")
 
-    run([z7_path, "a", "-tzip", "-y", str(zip_file), str(web_dir) + "/*"], cwd=str(build_dir))
+    run(
+        [z7_path, "a", "-tzip", "-y", str(zip_file), str(web_dir) + "/*"],
+        cwd=str(build_dir),
+    )
     size_mb = zip_file.stat().st_size / 1024 / 1024
     print(f"   ✅ 打包完成: {zip_file.name} ({size_mb:.2f} MB)")
 
