@@ -39,6 +39,18 @@
   <img src="https://img.shields.io/badge/☁️China_阿里云-上海自建节点-ff6a00?style=for-the-badge&logo=alibabacloud&logoColor=white&labelColor=ff6a00" alt="Alibaba Cloud" />
 </a>
 
+---
+## 🚀 部署
+
+本项目使用 GitHub Actions 自动部署到 **GitHub Pages** 和 **Cloudflare Pages**。
+
+在 commit message 中包含 `pub page` 关键词即可触发部署：
+
+```bash
+git commit -m "update: 更新内容 (pub page)"
+git push github main
+```
+
 使用GitHub Action CI的详细部署流程请参考 [deploy.md](.github/workflows/deploy.md)。
 
 ---
@@ -94,15 +106,3 @@
 
 ---
 
-## 🚀 部署
-
-本项目使用 GitHub Actions 自动部署到 **GitHub Pages** 和 **Cloudflare Pages**。
-
-在 commit message 中包含 `pub page` 关键词即可触发部署：
-
-```bash
-git commit -m "update: 更新内容 (pub page)"
-git push github main
-```
-
----
