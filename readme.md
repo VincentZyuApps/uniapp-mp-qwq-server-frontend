@@ -39,6 +39,8 @@
   <img src="https://img.shields.io/badge/☁️China_阿里云-上海自建节点-ff6a00?style=for-the-badge&logo=alibabacloud&logoColor=white&labelColor=ff6a00" alt="Alibaba Cloud" />
 </a>
 
+使用GitHub Action CI的详细部署流程请参考 [deploy.md](.github/workflows/deploy.md)。
+
 ---
 
 ## 📖 简介
@@ -102,7 +104,5 @@
 git commit -m "update: 更新内容 (pub page)"
 git push github main
 ```
-
-详细部署流程请参考 [deploy.md](.github/workflows/deploy.md)。
 
 ---
