@@ -9,7 +9,7 @@
 			// });
 			// console.log("set qq.showShareMenu in App.vue");
 			// #endif
-			console.log('App Launch，20250524')
+			console.log('App Launch, 20250617')
 		},
 		onShow: function() {
 			console.log('App Show')

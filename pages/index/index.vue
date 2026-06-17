@@ -888,7 +888,8 @@
 
 	.DebugInfoWrapper {
 		width: 90vw;
-		margin: 20rpx auto;
+		margin: 20rpx auto 0 auto;
+		padding-bottom: 240rpx;
 	}
 
 </style>

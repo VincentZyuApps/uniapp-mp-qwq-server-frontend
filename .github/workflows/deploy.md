@@ -36,7 +36,7 @@ git commit -m "update: 更新首页样式 (pub page)"
 
 ```bash
 git add unpackage/dist/build/web/
-git commit -m "build: 构建 H5 (pub page)"
+git commit -m "github ci: 更新 Web H5 Github Page 和 Cloudflare Page (pub page)"
 git push github main
 ```
 

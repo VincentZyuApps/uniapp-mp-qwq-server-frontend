@@ -241,7 +241,8 @@ onLoad((event) => {
 
 .content-scroll { 
 	flex: 1; 
-	height: 100%; 
+	height: 100%;
+	padding-bottom: 120rpx;
 }
 
 .content { 
@@ -533,7 +534,7 @@ onLoad((event) => {
 .AboutDebugInfoWrapper {
 	width: calc(100% - 40rpx);
 	max-width: 720rpx;
-	margin: 60rpx auto 160rpx auto;
+	margin: 60rpx auto 280rpx auto;
 
 	@media (min-width: 768px) {
 		max-width: 920px;
