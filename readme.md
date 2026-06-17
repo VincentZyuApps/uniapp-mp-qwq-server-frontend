@@ -27,19 +27,16 @@
 
 ## 🌐 在线访问 · Web (H5) ✅
 
-<a href="https://vincentzyuapps.github.io/uniapp-mp-qwq-server-frontend/">
-  <img src="https://img.shields.io/badge/📖_GitHub_Pages-vincentzyuapps.github.io-6c63ff?style=for-the-badge&logo=github&logoColor=white&labelColor=181717" alt="GitHub Pages" />
-</a>
-
-<a href="https://uniapp-mp-qwq-server-frontend.pages.dev">
-  <img src="https://img.shields.io/badge/⚡_Cloudflare_Pages-pages.dev-9b59b6?style=for-the-badge&logo=cloudflare&logoColor=white&labelColor=f38020" alt="Cloudflare Pages" />
-</a>
-
-<a href="https://sh-aliyun2.vincentzyu233.cn/qwq-server/#/">
-  <img src="https://img.shields.io/badge/☁️China_阿里云-上海自建节点-ff6a00?style=for-the-badge&logo=alibabacloud&logoColor=white&labelColor=ff6a00" alt="Alibaba Cloud" />
-</a>
+| 发行平台 | 链接 · 二维码 · Badge | 状态 |
+| :--- | :--- | :--- |
+| 🌍 **GitHub Pages** | [vincentzyuapps.github.io/uniapp-mp-qwq-server-frontend](https://vincentzyuapps.github.io/uniapp-mp-qwq-server-frontend/) <br> <img src="https://img.shields.io/badge/📖_GitHub_Pages-vincentzyuapps.github.io-586069?style=for-the-badge&logo=github&logoColor=white&labelColor=181717" /> | ✅ 已发行 |
+| ⚡ **Cloudflare Pages** | [uniapp-mp-qwq-server-frontend.pages.dev](https://uniapp-mp-qwq-server-frontend.pages.dev) <br> <img src="https://img.shields.io/badge/⚡_Cloudflare_Pages-pages.dev-f5a623?style=for-the-badge&logo=cloudflare&logoColor=white&labelColor=f38020" /> | ✅ 已发行 |
+| ☁️ **阿里云自建** | [sh-aliyun2.vincentzyu233.cn/qwq-server](https://sh-aliyun2.vincentzyu233.cn/qwq-server/#/) <br> <img src="https://img.shields.io/badge/☁️China_阿里云-上海自建节点-ff944d?style=for-the-badge&logo=alibabacloud&logoColor=white&labelColor=ff6a00" /> | ✅ 已发行  |
+| 💬 **QQ 小程序** | [m.q.qq.com/a/s/e949549561f99c9c0c06e6fbc036c9a2](https://m.q.qq.com/a/s/e949549561f99c9c0c06e6fbc036c9a2) <br> 搜索「拨无因果mc跑酷服务器计分板」<br> <img src="https://img.shields.io/badge/💬_QQ小程序-扫码体验-45c3fa?style=for-the-badge&logo=qq&logoColor=white&labelColor=0d86d4" /> <br> <img src="./doc/qrcode/qrcode.qq.png.png" width="150" /> | ✅ 已发行 （新版本审核中⏳） |
+| 💬 **微信小程序** | 搜索「拨无因果mc跑酷服务器计分板」<br> <img src="https://img.shields.io/badge/💬_微信小程序-扫码体验-52d484?style=for-the-badge&logo=wechat&logoColor=white&labelColor=07c160" /> <br> <img src="./doc/qrcode/qrcode.wechat.png" width="150" /> | ✅ 已发行 （新版本审核中⏳） |
 
 ---
+
 ## 🚀 部署
 
 本项目使用 GitHub Actions 自动部署到 **GitHub Pages** 和 **Cloudflare Pages**。
@@ -57,12 +54,15 @@ git push github main
 
 ## 📖 简介
 
-本项目为「拨无因果」Minecraft 服务器的配套小程序前端，采用 **UniApp (Vue 3)** 技术栈开发，支持多端构建与部署。
+本项目为「拨无因果VincentZyu」Minecraft 服务器的配套小程序前端，采用 **UniApp (Vue 3)** 技术栈开发，支持多端构建与部署。
 
 | 发行平台 | 状态 |
 | :--- | :--- |
-| 🌍 Web (H5) | ✅ 已发行（↑ 上方三个节点均可访问） |
+| 🌍 GitHub Pages | ✅ 已发行 |
+| ⚡ Cloudflare Pages | ✅ 已发行 |
+| ☁️ 阿里云自建 | ✅ 已发行 |
 | 💬 QQ 小程序 | ✅ 已发行 |
+| 💬 微信小程序 | ✅ 已发行 |
 
 ---
 
