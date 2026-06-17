@@ -2,7 +2,7 @@
     <view class="PageContainer">
     <view class="WorksPage pageBg"></view>
         
-    <view class="SortRulesContainer" :style="{ top: (StatusBarHeight + 6) + 'px', left: '10px', right: '10px' }">
+    <view class="SortRulesContainer" :style="{ top: (StatusBarHeight + 6) + 'px' }">
             <view class="SortRow">
                 <button :class="['SortButton', SortingRule=='NameAsc'?'active':'']" @click="sortByNameAsc()">名字升序</button>
                 <button :class="['SortButton', SortingRule=='NameDesc'?'active':'']" @click="sortByNameDesc()">名字降序</button>
@@ -430,8 +430,8 @@ function onAvatarError(name){
         font-weight: 100;
         padding: 8px;
         top: 0;
-        left: 8px;
-        right: 8px;
+        left: 10px;
+        right: 10px;
         height: auto;
         z-index: 1200;
         display: flex;
@@ -439,6 +439,15 @@ function onAvatarError(name){
         gap: 8px;
         align-items: stretch;
         pointer-events: auto;
+        box-sizing: border-box;
+        
+        @media (min-width: 1000px) {
+            left: 50%;
+            right: auto;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 900px;
+        }
     }
     
     .SortRow {
@@ -446,6 +455,7 @@ function onAvatarError(name){
         flex-direction: row;
         gap: 8px;
         width: 100%;
+        justify-content: center;
     }
 
     .SortRow button {
@@ -465,13 +475,19 @@ function onAvatarError(name){
         font-size: 15px;
         flex: 1 1 0;
         min-width: 120px;
+        max-width: 100%;
+        
+        @media (min-width: 1000px) {
+            flex: 0 1 auto;
+            max-width: 240px;
+        }
     }
 
     .SortRow button:hover { background-color: rgba(77,77,77,0.78); }
     /* Active button: stronger shadow and slightly larger */
     .SortRow button.active {
-        transform: scale(1.05);
-        box-shadow: 0 14px 40px rgba(0,0,0,0.35), 0 0 24px rgba(31,119,167,0.45);
+        transform: scale(1.02);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.3), 0 0 12px rgba(31,119,167,0.4);
         font-size: 16px;
         position: relative;
         z-index: 3000; /* place on top */
@@ -484,10 +500,10 @@ function onAvatarError(name){
     .SortRow button.active::after {
         content: '';
         position: absolute;
-        left: -6px;
-        right: -6px;
-        top: -6px;
-        bottom: -6px;
+        left: -2px;
+        right: -2px;
+        top: -2px;
+        bottom: -2px;
         border-radius: 10px;
         background: radial-gradient(ellipse at center, rgba(31,119,167,0.12), rgba(31,119,167,0.02));
         z-index: -1;

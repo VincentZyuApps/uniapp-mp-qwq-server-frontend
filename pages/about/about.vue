@@ -85,6 +85,10 @@
 					</view>
 				</view>
 			</view>
+
+			<view class="AboutDebugInfoWrapper">
+				<debug-info :info="SYSTEM_INFO" />
+			</view>
 		</scroll-view>
 
 		<my-nav class="down-nav" :y="Number(5)" :x="XRef" />
@@ -94,6 +98,8 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { onLoad } from '@dcloudio/uni-app'
+import { SYSTEM_INFO } from '@/utils/system.js'
+import DebugInfo from '@/components/debug-info/debug-info.vue'
 
 const githubUrl = 'https://github.com/VincentZyuApps/uniapp-mp-qwq-server-frontend'
 const giteeUrl = 'https://gitee.com/vincent-zyu/uniapp-mp-qwq-server-frontend'
@@ -240,11 +246,11 @@ onLoad((event) => {
 
 .content { 
 	padding: 40rpx 30rpx;
-	padding-bottom: 140rpx;
+	padding-bottom: 0rpx;
 	display: flex;
 	justify-content: center;
 	align-items: flex-start;
-	min-height: calc(100vh - 140rpx);
+	min-height: auto;
 }
 
 .card {
@@ -521,6 +527,16 @@ onLoad((event) => {
 	
 	.github-link {
 		padding: 20rpx;
+	}
+}
+
+.AboutDebugInfoWrapper {
+	width: calc(100% - 40rpx);
+	max-width: 720rpx;
+	margin: 60rpx auto 160rpx auto;
+
+	@media (min-width: 768px) {
+		max-width: 920px;
 	}
 }
 

@@ -77,19 +77,8 @@
 		</view>
 	</scroll-view>
 	
-	<view class="DebugInfoBox">
-		<view class="DebugInfoTitle">
-			DebugInfo:
-		</view>
-		<view class="DebugInfoItem" v-for="(value, key) in SYSTEM_INFO"
-		:key="key">
-			<view class="DebugInfoKey">
-				{{key}}
-			</view>
-			<view class="DebugInfoValue">
-				{{SYSTEM_INFO[key]}}
-			</view>
-		</view>
+	<view class="DebugInfoWrapper">
+		<debug-info :info="SYSTEM_INFO" />
 	</view>
 	
 	<my-nav class="down-nav" :y="Number(1)" :x="XRef"></my-nav>
@@ -892,43 +881,14 @@
 		}
 	}
 	
-	.DebugInfoBox {
-		border: 2px solid red;
-		display: block;
-		margin: 10px 0;
-		width: 90vw;
-		margin: 0 auto;
-		padding: 10px;
-		z-index: 0;
-	  // display: flex
-	}
-	
-	.DebugInfoTitle {
-	  font-weight: bold;
-	  font-size: 30px; /* 调整为合适的字体大小 */
-	  margin-bottom: 12px;
-	  color: #333; /* 你可以根据需要修改颜色 */
-	}
-	
-	.DebugInfoItem {
-	  display: flex;
-	  margin-bottom: 8px;
-	}
-	
-	.DebugInfoKey {
-	  font-weight: bold;
-	  font-size: 18px; /* 比值更大 */
-	  margin-right: 10px;
-	}
-	
-	.DebugInfoValue {
-	  text-decoration: underline;
-	  font-size: 14px; /* 正常大小 */
-	}
-
 	.down-nav{
 		position: fixed;
 		bottom: 10px;
+	}
+
+	.DebugInfoWrapper {
+		width: 90vw;
+		margin: 20rpx auto;
 	}
 
 </style>
