@@ -10,16 +10,18 @@
       DEPLOY_SSH_PORT       — SSH 端口（默认 22）
       DEPLOY_SSH_USER       — SSH 用户名（默认 root）
       DEPLOY_SSH_KEY        — SSH 私钥文件路径（可选，不设则使用密码或默认密钥）
-      DEPLOY_REMOTE_DIR     — 服务器目标目录（如 /data/mp_qwq_frontend）
-      DEPLOY_7Z_PATH        — 本地 7z 可执行文件路径（默认 7z，即 PATH 中查找）
+      DEPLOY_REMOTE_DIR     — 服务器最终网页目录
+      DEPLOY_REMOTE_OWNER   — 远端文件所有者（可选，如 root:root）
+      DEPLOY_VERIFY_URL     — 部署后验证 URL（可选）
 
     用法：执行前先设好环境变量，例如：
       $env:DEPLOY_SSH_HOST   = "your-server.com"
-      $env:DEPLOY_REMOTE_DIR = "/data/mp_qwq_frontend"
+      $env:DEPLOY_REMOTE_DIR = "/opt/1panel/www/sites/example.com/index"
       .\deploy.ps1
 
 .NOTES
     敏感信息请勿提交到 Git！
+    需要 Python 3.10 或更高版本。
     建议将真实值保存在 tmp/ 目录（已被 .gitignore 排除）。
 #>
 
@@ -36,7 +38,7 @@ if ($missingVars.Count -gt 0) {
     }
     Write-Host "`n请在执行前设置环境变量，例如:" -ForegroundColor Cyan
     Write-Host '    $env:DEPLOY_SSH_HOST   = "your-server.com"'
-    Write-Host '    $env:DEPLOY_REMOTE_DIR = "/data/mp_qwq_frontend"'
+    Write-Host '    $env:DEPLOY_REMOTE_DIR = "/opt/1panel/www/sites/example.com/index"'
     Write-Host ""
     Read-Host "按 Enter 退出"
     exit 1
@@ -45,8 +47,6 @@ if ($missingVars.Count -gt 0) {
 # ====== 设置可选变量的默认值 ======
 if (-not $env:DEPLOY_SSH_PORT) { $env:DEPLOY_SSH_PORT = "22" }
 if (-not $env:DEPLOY_SSH_USER) { $env:DEPLOY_SSH_USER = "root" }
-if (-not $env:DEPLOY_7Z_PATH)  { $env:DEPLOY_7Z_PATH  = "7z" }
-
 # ====== 打印环境变量 ======
 Write-Host "🔑 环境变量已设置:"
 Write-Host "   HOST = $env:DEPLOY_SSH_HOST"
@@ -54,11 +54,12 @@ Write-Host "   PORT = $env:DEPLOY_SSH_PORT"
 Write-Host "   USER = $env:DEPLOY_SSH_USER"
 Write-Host "   KEY  = $env:DEPLOY_SSH_KEY"
 Write-Host "   DIR  = $env:DEPLOY_REMOTE_DIR"
+Write-Host "   OWNER = $env:DEPLOY_REMOTE_OWNER"
+Write-Host "   URL   = $env:DEPLOY_VERIFY_URL"
 Write-Host ""
 
 # ====== 执行部署脚本 ======
-$projectRoot = Split-Path -Parent $PSScriptRoot
-python "$projectRoot\prod\deploy.py"
+python "$PSScriptRoot\deploy.py"
 
 if ($LASTEXITCODE -ne 0) {
     Write-Host "`n❌ 部署失败！" -ForegroundColor Red

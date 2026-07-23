@@ -102,7 +102,7 @@
 		}
 	}
 	
-	const BASE_IMG_URL = "https://sh-aliyun2.vincentzyu233.cn/mpbackend/api/image/file/";
+	const BASE_IMG_URL = "https://bluerosion.vincentzyu233.cn/mpbackend/api/image/file/";
 	
 	function fixMarkdownImagePaths(markdownText) {
 	  return markdownText.replace(/!\[(.*?)\]\((.*?)\)/g, (match, alt, path) => {

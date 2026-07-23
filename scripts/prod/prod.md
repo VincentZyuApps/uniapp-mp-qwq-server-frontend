@@ -30,9 +30,9 @@
 用户浏览器 → https://<YOUR_DOMAIN>/qwq-server
                         │ HTTPS :443
                         ▼
-                   Nginx 反向代理
+                1Panel OpenResty
     ┌──────────────────────────────────────────┐
-    │  /qwq-server/   → alias /data/.../web/   │
+    │  /qwq-server/   → alias /www/sites/.../  │
     │  /qs/           → proxy_pass 127.0.0.1   │
     │  /mpbackend/    → proxy_pass 127.0.0.1   │
     │  /              → proxy_pass 127.0.0.1   │
@@ -62,8 +62,7 @@
 | 工具 | 用途 |
 |:---|:---|
 | **HBuilderX** | 构建 UniApp H5 |
-| **Python 3** (≥ 3.8) | 运行 `deploy.py` |
-| **7-Zip** (≥ 21.0) | 本地打包 |
+| **Python 3** (≥ 3.10) | 运行 `deploy.py` 并生成部署压缩包 |
 | **SSH 客户端** | 连接远程服务器 |
 
 ### 服务器环境
@@ -74,8 +73,8 @@
 | **Nginx** | ≥ 1.18 |
 | **unzip** | 解压 zip 包 |
 | **Let's Encrypt** | SSL 证书（certbot） |
-| **目标目录** | `/data/mp_qwq_frontend/` |
-| **Web 用户** | `www-data` |
+| **目标目录** | 1Panel 宿主机上的最终网页目录 |
+| **Web 用户** | 与 OpenResty 站点权限匹配的用户，默认可使用 `root:root` |
 
 ---
 
@@ -89,11 +88,12 @@ $env:DEPLOY_SSH_HOST   = "<YOUR_SERVER>"
 $env:DEPLOY_SSH_PORT   = "22"
 $env:DEPLOY_SSH_USER   = "root"
 $env:DEPLOY_SSH_KEY    = ""
-$env:DEPLOY_REMOTE_DIR = "/data/mp_qwq_frontend"
-$env:DEPLOY_7Z_PATH    = "7z"
+$env:DEPLOY_REMOTE_DIR = "/opt/1panel/www/sites/<YOUR_DOMAIN>/index"
+$env:DEPLOY_REMOTE_OWNER = "root:root"
+$env:DEPLOY_VERIFY_URL = "https://<YOUR_DOMAIN>/qwq-server/"
 
 # 执行部署
-python prod\deploy.py
+python scripts\prod\deploy.py
 ```
 
 ### 方式二：CMD
@@ -102,9 +102,10 @@ python prod\deploy.py
 set DEPLOY_SSH_HOST=<YOUR_SERVER>
 set DEPLOY_SSH_PORT=22
 set DEPLOY_SSH_USER=root
-set DEPLOY_REMOTE_DIR=/data/mp_qwq_frontend
-set DEPLOY_7Z_PATH=7z
-python prod\deploy.py
+set DEPLOY_REMOTE_DIR=/opt/1panel/www/sites/<YOUR_DOMAIN>/index
+set DEPLOY_REMOTE_OWNER=root:root
+set DEPLOY_VERIFY_URL=https://<YOUR_DOMAIN>/qwq-server/
+python scripts\prod\deploy.py
 ```
 
 ### 方式三：Linux / WSL / Git Bash
@@ -113,19 +114,20 @@ python prod\deploy.py
 export DEPLOY_SSH_HOST="<YOUR_SERVER>"
 export DEPLOY_SSH_PORT="22"
 export DEPLOY_SSH_USER="root"
-export DEPLOY_REMOTE_DIR="/data/mp_qwq_frontend"
-export DEPLOY_7Z_PATH="7z"
-python3 prod/deploy.py
+export DEPLOY_REMOTE_DIR="/opt/1panel/www/sites/<YOUR_DOMAIN>/index"
+export DEPLOY_REMOTE_OWNER="root:root"
+export DEPLOY_VERIFY_URL="https://<YOUR_DOMAIN>/qwq-server/"
+python3 scripts/prod/deploy.py
 ```
 
 ### 方式四：使用包装脚本
 
 ```bash
-# 先编辑 prod/deploy.sh 填入服务器信息
-bash prod/deploy.sh
+# 先设置部署环境变量
+bash scripts/prod/deploy.sh
 
-# 或编辑 prod/deploy.bat 后双击运行（Windows CMD）
-# 或编辑 prod/deploy.ps1 后右键"Run with PowerShell"
+# 或运行 scripts/prod/deploy.bat（Windows CMD）
+# 或运行 scripts/prod/deploy.ps1（Windows PowerShell）
 ```
 
 **脚本执行流程：**
@@ -136,7 +138,7 @@ bash prod/deploy.sh
 [3/3] 🔄 远程部署   — 解压 → 备份旧版 → 原子切换 → 设置权限 → 清理
 ```
 
-> ⚠️ `prod/` 目录下的脚本均为脱敏模板，修改后请勿提交含真实值的版本。
+> ⚠️ `scripts/prod/` 目录下的脚本均为脱敏模板，请通过环境变量传入真实值。
 > 建议将真实敏感值保存在 `tmp/` 目录（已被 `.gitignore` 排除）。
 
 ---
@@ -207,172 +209,102 @@ export DEPLOY_SSH_KEY="$HOME/.ssh/id_ed25519"
 
 ---
 
-## Nginx 配置参考
+## 1Panel OpenResty 配置参考
 
-### 主站配置
+1Panel 生成站点后，应保留它管理的 `server`、SSL、日志和 ACME 配置，只在现有 `server` 中增加业务 `location` 喵。
 
 ```nginx
-server {
-    listen 80;
-    listen [::]:80;
-    server_name <YOUR_DOMAIN>;
-    return 301 https://$host$request_uri;
+location ^~ /qs/ {
+    proxy_pass http://127.0.0.1:8326/;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
 }
 
-server {
-    listen 443 ssl http2;
-    listen [::]:443 ssl http2;
-    server_name <YOUR_DOMAIN>;
+location ^~ /mpbackend/ {
+    proxy_pass http://127.0.0.1:8416/;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+}
 
-    ssl_certificate     /etc/letsencrypt/live/<YOUR_DOMAIN>/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/<YOUR_DOMAIN>/privkey.pem;
-    include /etc/letsencrypt/options-ssl-nginx.conf;
-    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+location = /qwq-server {
+    return 301 /qwq-server/;
+}
 
-    # Koishi 主服务
-    location / {
-        proxy_pass http://127.0.0.1:51214;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-    }
-
-    # FastAPI 后端
-    location /qs/ {
-        proxy_pass http://127.0.0.1:8326/;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-    }
-
-    # 其他后端服务
-    location /mpbackend/ {
-        proxy_pass http://127.0.0.1:8416/;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-    }
-
-    # H5 前端静态文件
-    location = /qwq-server {
-        return 301 /qwq-server/;
-    }
-    location /qwq-server/ {
-        alias /data/mp_qwq_frontend/web/;
-        index index.html;
-        try_files $uri $uri/ /qwq-server/index.html;
-    }
+location /qwq-server/ {
+    alias /www/sites/<YOUR_DOMAIN>/index/;
+    index index.html;
+    try_files $uri $uri/ /qwq-server/index.html;
 }
 ```
 
-### 应用配置
+配置中的 `/www/sites/...` 是 OpenResty 容器路径，部署脚本使用的 `/opt/1panel/www/sites/...` 是宿主机路径喵。
 
 ```bash
-nginx -t && systemctl reload nginx
+docker exec <OPENRESTY_CONTAINER> openresty -t
+docker exec <OPENRESTY_CONTAINER> openresty -s reload
 ```
+
+不要使用系统 `nginx -t` 验证 1Panel OpenResty 配置喵。
 
 ---
 
 ## SSL 证书管理
 
-```bash
-# 申请证书
-certbot --nginx -d <YOUR_DOMAIN>
+站点证书默认交给 1Panel 管理喵。不要同时让 1Panel 和 Certbot续期同一张证书喵。
 
-# 查看证书状态
-certbot certificates
-
-# 手动续签
-certbot renew
-
-# 验证自动续期
-certbot renew --dry-run
-
-# 查看自动续签定时器
-systemctl list-timers | grep certbot
-```
+前端部署脚本只更新静态文件，不修改证书或 OpenResty 配置喵。
 
 ---
 
 ## 验证与健康检查
 
-### 检查清单
-
 | 检查项 | 命令 |
 |:---|:---|
-| Nginx 运行状态 | `systemctl status nginx` |
-| 前端文件就位 | `ls -la /data/mp_qwq_frontend/web/index.html` |
-| 后端端口监听 | `ss -tlnp \| grep -E '8326\|8416\|51214'` |
-| 本地 curl 测试 | `curl -sI https://<YOUR_DOMAIN>/qwq-server/ \| head -5` |
-
-### 访问地址
-
-| 平台 | 地址 |
-|:---|:---|
-| 🖥️ 自有服务器 | `https://<YOUR_DOMAIN>/qwq-server` |
+| OpenResty 配置 | `docker exec <OPENRESTY_CONTAINER> openresty -t` |
+| 前端文件 | `ls -la <DEPLOY_REMOTE_DIR>/index.html` |
+| 后端监听 | `ss -lntp \| grep -E ':(8326\|8416)\\b'` |
+| 公开页面 | `curl -fsSI https://<YOUR_DOMAIN>/qwq-server/` |
 
 ---
 
 ## 回滚方案
 
+脚本会在目标目录的父目录中留下 `.<目录名>.bak.<时间戳>` 备份喵。
+
 ```bash
-ssh <USER>@<YOUR_SERVER>
-
-cd /data/mp_qwq_frontend
-
-# 查看可用备份
-ls -ld web_bak_*
-
-# 回滚到指定备份
-mv web web_broken
-mv web_bak_<TIMESTAMP> web
-chown -R www-data:www-data web
-
-# 确认成功后清理
-rm -rf web_broken
+cd <DEPLOY_REMOTE_DIR的父目录>
+mv <目标目录名> ".failed.$(date +%Y%m%d%H%M%S)"
+mv .<目标目录名>.bak.<TIMESTAMP> <目标目录名>
 ```
+
+静态文件回滚不需要重载 OpenResty 喵。
 
 ---
 
 ## 故障排查
 
-### 页面白屏 / 404
+### 页面白屏、404 或 403
 
 ```bash
-# 检查文件是否存在
-ls -la /data/mp_qwq_frontend/web/index.html
-
-# 检查 Nginx 错误日志
-tail -50 /var/log/nginx/error.log
-
-# 检查配置语法
-nginx -t
+ls -la <DEPLOY_REMOTE_DIR>/index.html
+docker exec <OPENRESTY_CONTAINER> openresty -t
 ```
 
-### API 请求失败（502 / 连接超时）
+### API 返回 502
 
 ```bash
-# 检查后端服务端口
-ss -tlnp | grep -E '8326|8416'
-
-# 查看后端日志
-journalctl -u <BACKEND_SERVICE> -n 50
-```
-
-### 权限错误（403 Forbidden）
-
-```bash
-ls -la /data/mp_qwq_frontend/web/
-chown -R www-data:www-data /data/mp_qwq_frontend/web
-chmod -R 755 /data/mp_qwq_frontend/web
+ss -lntp | grep -E ':(8326|8416)\b'
+curl -fsS http://127.0.0.1:8326/openapi.json
+curl -fsS http://127.0.0.1:8416/openapi.json
 ```
 
 ### 日志位置
 
 | 日志 | 路径 |
 |:---|:---|
-| Nginx 访问日志 | `/var/log/nginx/access.log` |
-| Nginx 错误日志 | `/var/log/nginx/error.log` |
+| 站点日志 | `/opt/1panel/www/sites/<YOUR_DOMAIN>/log/` |
+| OpenResty 日志 | `/opt/1panel/apps/openresty/openresty/log/` |

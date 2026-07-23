@@ -7,13 +7,14 @@
 #   DEPLOY_SSH_PORT       — SSH 端口（默认 22）
 #   DEPLOY_SSH_USER       — SSH 用户名（默认 root）
 #   DEPLOY_SSH_KEY        — SSH 私钥文件路径（可选，不设则使用密码或默认密钥）
-#   DEPLOY_REMOTE_DIR     — 服务器目标目录（如 /data/mp_qwq_frontend）
-#   DEPLOY_7Z_PATH        — 本地 7z 可执行文件路径（默认 7z，即 PATH 中查找）
+#   DEPLOY_REMOTE_DIR     — 服务器最终网页目录
+#   DEPLOY_REMOTE_OWNER   — 远端文件所有者（可选，如 root:root）
+#   DEPLOY_VERIFY_URL     — 部署后验证 URL（可选）
 #
 # 用法：
 #   export DEPLOY_SSH_HOST="your-server.com"
-#   export DEPLOY_REMOTE_DIR="/data/mp_qwq_frontend"
-#   bash deploy.sh
+#   export DEPLOY_REMOTE_DIR="/opt/1panel/www/sites/example.com/index"
+#   bash scripts/prod/deploy.sh
 #
 # 敏感信息请勿提交到 Git！
 # 建议将真实值保存在 tmp/ 目录（已被 .gitignore 排除）。
@@ -41,7 +42,7 @@ if [ "$MISSING" -ne 0 ]; then
     echo ""
     echo "请在执行前设置环境变量："
     echo "  export DEPLOY_SSH_HOST=\"your-server.com\""
-    echo "  export DEPLOY_REMOTE_DIR=\"/data/mp_qwq_frontend\""
+    echo "  export DEPLOY_REMOTE_DIR=\"/opt/1panel/www/sites/example.com/index\""
     echo ""
     exit 1
 fi
@@ -49,8 +50,6 @@ fi
 # ====== 设置可选变量的默认值 ======
 [ -z "$DEPLOY_SSH_PORT" ] && DEPLOY_SSH_PORT="22"
 [ -z "$DEPLOY_SSH_USER" ] && DEPLOY_SSH_USER="root"
-[ -z "$DEPLOY_7Z_PATH" ]  && DEPLOY_7Z_PATH="7z"
-
 # ====== 打印环境变量 ======
 echo "🔑 环境变量已设置:"
 echo "   HOST = $DEPLOY_SSH_HOST"
@@ -58,8 +57,10 @@ echo "   PORT = $DEPLOY_SSH_PORT"
 echo "   USER = $DEPLOY_SSH_USER"
 echo "   KEY  = $DEPLOY_SSH_KEY"
 echo "   DIR  = $DEPLOY_REMOTE_DIR"
+echo "   OWNER = $DEPLOY_REMOTE_OWNER"
+echo "   URL   = $DEPLOY_VERIFY_URL"
 echo ""
 
 # ====== 执行部署脚本 ======
-cd "$(dirname "$0")/.."
-python3 prod/deploy.py
+SCRIPT_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
+python3 "$SCRIPT_DIR/deploy.py"

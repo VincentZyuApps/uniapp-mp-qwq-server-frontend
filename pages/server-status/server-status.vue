@@ -91,7 +91,7 @@ const scrollBoxHeight =  ref( getNavBarHeight() + 66 )
 // Hardcoded servers
 const servers = ref([
 	{ name: 'SRV主入口', addr: 'bc.vincentzyu233.cn' },
-	{ name: 'IP+PORT直连', addr: 'sh-aliyun2.vincentzyu233.cn:53332' }
+	{ name: 'IP+PORT直连', addr: 'bluerosion.vincentzyu233.cn:53332' }
 ])
 
 const currentIdx = ref(0)

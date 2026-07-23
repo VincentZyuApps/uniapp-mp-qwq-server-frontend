@@ -1,15 +1,22 @@
+# 🛠️ 编辑器与开发工具
 /.vscode/
+/.hbuilderx/
 
-# 排除 unpackage 目录，但保留 H5 构建产物
+# 📦 项目依赖
+/node_modules/
+
+# 🧹 临时文件
+/tmp/
+
+# 🐍 Python 缓存
+__pycache__/
+*.py[cod]
+
+# 🏗️ UniApp 构建产物（仅保留 H5 Web 构建）
 /unpackage/*
 !/unpackage/dist/
 /unpackage/dist/*
 !/unpackage/dist/build/
 /unpackage/dist/build/*
 !/unpackage/dist/build/web/
-# 递归保留 web 目录下的所有内容
 !/unpackage/dist/build/web/**
-
-/node_modules/
-/.hbuilderx/
-/tmp/

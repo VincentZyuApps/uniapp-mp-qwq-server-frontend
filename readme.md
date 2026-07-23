@@ -25,13 +25,14 @@
 
 ---
 
+
 ## 🌐 在线访问 · Web (H5) ✅
 
 | 发行平台 | 链接 · 二维码 · Badge | 状态 |
 | :--- | :--- | :--- |
 | 🌍 **GitHub Pages** | [vincentzyuapps.github.io/uniapp-mp-qwq-server-frontend](https://vincentzyuapps.github.io/uniapp-mp-qwq-server-frontend/) <br> <img src="https://img.shields.io/badge/📖_GitHub_Pages-vincentzyuapps.github.io-586069?style=for-the-badge&logo=github&logoColor=white&labelColor=181717" /> | ✅ 已发行 |
 | ⚡ **Cloudflare Pages** | [uniapp-mp-qwq-server-frontend.pages.dev](https://uniapp-mp-qwq-server-frontend.pages.dev) <br> <img src="https://img.shields.io/badge/⚡_Cloudflare_Pages-pages.dev-f5a623?style=for-the-badge&logo=cloudflare&logoColor=white&labelColor=f38020" /> | ✅ 已发行 |
-| ☁️ **阿里云自建** | [sh-aliyun2.vincentzyu233.cn/qwq-server](https://sh-aliyun2.vincentzyu233.cn/qwq-server/#/) <br> <img src="https://img.shields.io/badge/☁️China_阿里云-上海自建节点-ff944d?style=for-the-badge&logo=alibabacloud&logoColor=white&labelColor=ff6a00" /> | ✅ 已发行  |
+| ☁️ **阿里云自建** | [bluerosion.vincentzyu233.cn/qwq-server](https://bluerosion.vincentzyu233.cn/qwq-server/#/) <br> <img src="https://img.shields.io/badge/☁️China_阿里云-上海自建节点-ff944d?style=for-the-badge&logo=alibabacloud&logoColor=white&labelColor=ff6a00" /> | ✅ 已发行  |
 | 💬 **QQ 小程序** | [m.q.qq.com/a/s/e949549561f99c9c0c06e6fbc036c9a2](https://m.q.qq.com/a/s/e949549561f99c9c0c06e6fbc036c9a2) <br> 搜索「拨无因果mc跑酷服务器计分板」<br> <img src="https://img.shields.io/badge/💬_QQ小程序-扫码体验-45c3fa?style=for-the-badge&logo=qq&logoColor=white&labelColor=0d86d4" /> <br> <img src="./doc/qrcode/qrcode.qq.png.png" width="150" /> | ✅ 已发行 （新版本审核中⏳） |
 | 💬 **微信小程序** | 搜索「拨无因果mc跑酷服务器计分板」<br> <img src="https://img.shields.io/badge/💬_微信小程序-扫码体验-52d484?style=for-the-badge&logo=wechat&logoColor=white&labelColor=07c160" /> <br> <img src="./doc/qrcode/qrcode.wechat.png" width="150" /> | ✅ 已发行 （新版本审核中⏳） |
 
@@ -105,4 +106,3 @@ git push github main
 | HBuilderX | 构建工具 |
 
 ---
-
