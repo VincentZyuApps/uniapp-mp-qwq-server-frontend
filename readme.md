@@ -106,3 +106,21 @@ git push github main
 | HBuilderX | 构建工具 |
 
 ---
+
+## 📟 Git 命令行发版流程
+
+```shell
+# 更新版本，versionCode 自动使用 Asia/Shanghai 当天日期
+python scripts/bump.py -v x.y.z-beta.w
+# HBuilderX GUI：发行 -> 网站-PC Web或手机H5
+git add -A
+git add -f unpackage/dist/build/web/
+git status --short
+git --no-pager diff --cached --stat
+git diff --cached --check
+git status --short -- unpackage/dist/build/web/
+git ls-files -- unpackage/dist/build/web/
+git commit -m "feat: 更新内容与 Web H5 构建产物 (pub page)"
+git push github main
+git push origin main
+```

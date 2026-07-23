@@ -1,4 +1,6 @@
 <script>
+	const APP_VERSION = '0.3.1-rc.6'
+
 	export default {
 		onLaunch: function() {
 			// QQ小程序的分享设置
@@ -9,13 +11,13 @@
 			// });
 			// console.log("set qq.showShareMenu in App.vue");
 			// #endif
-			console.log('App Launch, 20250617')
+			console.log(`App Launch. 欢迎来到 UniAppMpQwqServerFrontend! version: ${APP_VERSION}`)
 		},
 		onShow: function() {
-			console.log('App Show')
+			console.log(`App Show. 欢迎回到 UniAppMpQwqServerFrontend! version: ${APP_VERSION}`)
 		},
 		onHide: function() {
-			console.log('App Hide')
+			console.log(`App Hide. 欢迎离开 UniAppMpQwqServerFrontend! version: ${APP_VERSION}`)
 		}
 	}
 </script>
